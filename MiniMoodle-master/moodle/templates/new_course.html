@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+	{%if student %}
+		You are not authorised to see this.
+	{% else %}
+	{% if user.courses %}
+		<p>
+			You have already floated course <a href="{% url 'course-detail' user.courses %}" style="color:orange">{{user.courses}}</a>.
+		</p>
+		<p>
+			If you want to float another course you have to <a href="{% url 'delete' user.courses%}"><span style="color:red"> delete</span></a> the existing course.
+		</p> 
+	{% else %}
+		<h4> Float a New Course</h4><br>
+		<form method='Post'>		
+			{% csrf_token %}
+			<div class="form-group">
+			{{form.name.label}}: {{form.name}}
+			</div>
+			<div class="form-group">
+			{{form.limit.label}}: {{form.limit}}
+			</div>
+			<div class="text-center"><input type="submit" value="Float" class="btn btn-info"></div>
+		</form>
+	{% endif %}
+{% endif %}
+{% endblock %} 
+

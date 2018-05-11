@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if student %}
+{% if courses %}
+<h4>My Courses</h4>
+<ul>
+{% for course in courses %}
+<li style="display:block"><span class="glyphicon glyphicon-chevron-right"><a href="{{ course.get_absolute_url }}">{{course.name}}</a></span></li>
+{% endfor %}
+</ul>
+{% else %}
+<span>You have not enrolled in any courses</span>
+{% endif %}
+{% else %}
+You are not authorised to view this page. Please <a href="{% url 'logout' %}">login</a> from an account which is.
+{% endif %}
+{% endblock %}

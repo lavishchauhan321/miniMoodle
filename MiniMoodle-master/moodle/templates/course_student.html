@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+	<h2>{{course.name}}</h2>
+	Course Coordinator: Professor <span style="color:orange">{{course.professor.first_name}}&nbsp{{course.professor.last_name}}</span><br>
+	Students enrolled: {{course.student.all.count}}<br>
+	Maximum Strength: {{ course.limit}}<br>
+	{% if enrolled %}
+		<a href="{% url 'drop' pk=course.name %}"><button class="btn btn-info">Drop</button></a><br><br>
+		<h4><strong>Posts from professor</strong></h4>	
+		{% if posts %}
+			
+			<div class= "container-fluid" >
+				{% for post in posts %}
+					<div class="row">
+						<div class="col-sm-5">
+							<h5>{{post.title}}</h5>
+						</div>
+						<div class ="row-sm-7">
+							{{post.timestamp}}
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-7" >{{post.content}}
+							<hr style="display:block"></hr>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		{% else %}
+			There are no posts from the professor
+		{% endif %}
+	{% elif full %}
+		<i><strong> All seats are full. You can not enroll in this course right now</i></strong>
+	{% else %}
+		<a href="{% url 'enroll' pk=course.name %}"><button class="btn btn-info">Enroll</button></a><br><br>
+	{% endif %}
+{% endblock %}
+{% block sidefeed %}
+{% endblock %}

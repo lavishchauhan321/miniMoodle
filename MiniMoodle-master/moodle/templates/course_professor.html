@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+	{% block content %}
+	<h3>{{course.name}}</h3>
+	Course offered by Professor <span style="color:orange">{{course.professor.first_name}}&nbsp{{course.professor.last_name}}</span><br>
+Students enrolled: {{course.student.all.count}}<br>
+Maximum Strength: {{ course.limit }}<br>
+<hr>
+
+{% if check %}
+	<h4>Post a message</h4><br>
+	<div class="text-center">
+		<form method="Post">
+		{% csrf_token %}
+			<div class="form-group">
+				{{form.title.label}}
+				{{ form.title }}
+			</div>
+			<div class="form-group">
+				{{ form.content}}
+			</div>
+			<input type="submit" value="POST" class="btn btn-info btn-sm" >
+		</form><br>
+	</div>
+	<h4><strong>Earlier Posts</strong></h4>
+	<hr>
+	{% if posts %}
+	<div class= "container-fluid" >
+		{% for post in posts %}
+			<div class="row">
+				<div class="col-sm-12">
+					<h4>{{post.title}}</h4>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-8" >{{post.content}}<br>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-8" >{{post.timestamp}}<br>
+				</div>
+				<div class="col-sm-1">
+					<a href="{% url 'msg-delete' post.id %}"><button class="btn btn-danger">Remove</button></a>
+				</div>
+			</div>
+			<hr>
+		{% endfor %}
+	</div>
+	{% else %}
+		<p> There are no posts to show</p> 	
+	{% endif %}
+
+{% endif %}
+{% endblock %}
+

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+{{form.non_field_errors}}
+<div class = "container-fluid">
+	<form method="Post">
+	{{form.non_field_errors}}
+	{% csrf_token %}
+	<div class="form-group">
+		{{ form.username.label}} <span style="color:red">{{form.username.errors.as_text}}</span><input type="text" name="username" class="form-control" placeholder="Enter a username" >
+		</div>
+		<div class="form-group">
+		Firstname <span style="color:red">{{form.fname.errors.as_text}}</span><input type="text" name="fname" class="form-control"  placeholder="Enter your first name" >
+		</div><div class="form-group">
+		Lastname <span style="color:red">{{form.lname.errors.as_text}}</span><input type="text" name="lname" class="form-control"  placeholder="Enter your last name" >
+		</div>
+		<div class="form-group">
+		Password <span style="color:red">{{form.password1.errors.as_text}}</span><br><input type="password" name="password1" class="form-control"  placeholder="Enter a secureassword" >
+		</div><div class="form-group">
+		Confirm password <span style="color:red">{{form.password2.errors.as_text}}</span><br><input type="password" name="password2" class="form-control" placeholder="Confirm password" >
+		</div>
+		<div class="form-group">
+		{{ form.group.label}} <span style="color:red">{{form.group.errors.as_text}}</span>{{ form.group}}
+		</div>
+	<input type="submit" value="Create" class="btn btn-info">
+</form>
+</div>
+{% endblock %}

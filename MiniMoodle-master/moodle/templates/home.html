@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>Welcome {{user.first_name}} {{user.last_name}}</h3>
+<p>
+{% if user.courses %} Your course: <a href="{% url 'course-detail' user.courses %}" style="color:orange">{{user.courses}}</a>{% endif %}
+</p>
+
+{% endblock %}
+
+{% block sidefeed %}
+	{% if student %}
+		<strong>Recent posts</strong><br>
+		{% for post in posts%}
+			{%if post.course in user.course_set.all%}
+				<div class="well">
+					<p><a href="{%url 'course-detail' message.course %}">{{message.course}}</a></p>
+					<strong>{{post.title}}</strong>
+					{% if post.content|make_list|length > 20 %}
+					{{post.content|make_list|slice:':18'|join:''}}...
+					{%else%}{{post.content}}
+					{%endif%}<br>
+					{{post.timestamp}}
+				</div>
+			{% endif%}
+		{% endfor %}
+	{%endif%}
+{%endblock%}

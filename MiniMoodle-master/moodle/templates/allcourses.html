@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+<h4>All Courses</h4>
+<ul>
+{% for course in courses %}
+<li style="display:block"><p><span class="glyphicon glyphicon-chevron-right"></span>
+<a href="{{ course.get_absolute_url }}" {% ifequal user.courses.name course.name %} style="color:orange"{% endifequal %}>{{course.name}}</a></p></li>
+{% endfor %}
+{% endblock %}
